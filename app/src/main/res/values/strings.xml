@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">MyNewsApp</string>
     <string name="no_articles">No articles found.</string>
-
     <string name="no_internet">No internet connection</string>
-
+    <string name="empty_string">""</string>
+    <string name="error">Error</string>
+    <string name="contentDesc">Image</string>
 </resources>

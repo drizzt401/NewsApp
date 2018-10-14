@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding">8dp</dimen>
+    <dimen name="imageSize">50dp</dimen>
+    <dimen name="myTextSize">11sp</dimen>
+    <dimen name="smallPadding">4dp</dimen>
+    <dimen name="smallMargin">2dp</dimen>
+    <dimen name="smallTextSize">12sp</dimen>
+    <dimen name="none">0dp</dimen>
+</resources>

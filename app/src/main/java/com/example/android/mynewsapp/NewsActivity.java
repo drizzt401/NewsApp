@@ -1,18 +1,13 @@
 package com.example.android.mynewsapp;
 
-import android.support.v4.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.Loader;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.LoaderManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,8 +21,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int EARTHQUAKE_LOADER_ID = 1;
     private NewsAdapter Adapter;
-
-    private static final String LOG_TAG = NewsActivity.class.getName();
 
     private static final String GUARDIAN_REQUEST_URL =
             "https://content.guardianapis.com/search?api-key=b9b4bf54-2edf-4e5c-aa02-982779134a55&order-by=newest&show-tags=contributor&show-fields=thumbnail,headline";
@@ -60,16 +53,16 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
         else {
-            mProgressBar = (ProgressBar) findViewById(R.id.loading_spinner);
+            mProgressBar = findViewById(R.id.loading_spinner);
             mProgressBar.setVisibility(View.INVISIBLE);
-            mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+            mEmptyStateTextView = findViewById(R.id.empty_view);
             mEmptyStateTextView.setText(getString(R.string.no_internet));
 
         }
         // Find a reference to the {@link ListView} in the layout
-        ListView newsArticleListView = (ListView) findViewById(R.id.list);
+        ListView newsArticleListView =  findViewById(R.id.list);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.loading_spinner);
+        mProgressBar =  findViewById(R.id.loading_spinner);
         // Create a new adapter that takes an empty list of earthquakes as input
         Adapter = new NewsAdapter(this, new ArrayList<NewsArticle>());
 
@@ -77,7 +70,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         // so the list can be populated in the user interface
         newsArticleListView.setAdapter(Adapter);
 
-        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+        mEmptyStateTextView = findViewById(R.id.empty_view);
         newsArticleListView.setEmptyView(mEmptyStateTextView);
 
 
@@ -118,7 +111,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(android.support.v4.content.Loader<List<NewsArticle>> loader, List<NewsArticle> newsArticles) {
-        // TODO: Update the UI with the result
         Adapter.clear();
 
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's

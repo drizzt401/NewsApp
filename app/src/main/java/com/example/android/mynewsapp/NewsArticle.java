@@ -7,11 +7,11 @@ import java.util.Date;
 
 public class NewsArticle {
 
-private String ThumbnailUrl;
-private String Header;
-private  String Author;
-private String DatePublished;
-private String Url;
+    private String ThumbnailUrl;
+    private String Header;
+    private String Author;
+    private String DatePublished;
+    private String Url;
 
 
     public NewsArticle(String thumbnail, String header, String author, String date, String url) {
@@ -36,17 +36,6 @@ private String Url;
     }
 
     public String getDatePublished() {
-        SimpleDateFormat format = new SimpleDateFormat("M-dd-yyyy HH:mm:ss"); // your format
-        Date date;
-
-        {
-            try {
-                date = format.parse(DatePublished);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-        }
 
         return DatePublished;
     }

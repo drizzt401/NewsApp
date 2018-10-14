@@ -3,9 +3,7 @@ package com.example.android.mynewsapp;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import android.os.AsyncTask;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,28 +13,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.InputStream;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class NewsAdapter extends ArrayAdapter<NewsArticle> {
 
 
-    private static final String LOCATION_SEPARATOR = " of ";
-
     /**
      * Constructs a new {@link NewsAdapter}.
      *
-     * @param context of the app
-     * @param newsArticles is the list of earthquakes, which is the data source of the adapter
+     * @param context      of the app
+     * @param newsArticles is the list of articles, which is the data source of the adapter
      */
     public NewsAdapter(Context context, List<NewsArticle> newsArticles) {
         super(context, 0, newsArticles);
     }
 
     /**
-     * Returns a list item view that displays information about the earthquake at the given position
-     * in the list of earthquakes.
+     * Returns a list item view that displays information about the news article at the given position
+     * in the list of news articles.
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -52,29 +49,43 @@ public class NewsAdapter extends ArrayAdapter<NewsArticle> {
         NewsArticle currentNewsArticle = getItem(position);
 
         // Find the TextView with view ID magnitude
-        ImageView thumbnailView = (ImageView) listItemView.findViewById(R.id.thumbnail);
+        ImageView thumbnailView = listItemView.findViewById(R.id.thumbnail);
         // Display the magnitude of the current earthquake in that TextView
         if (currentNewsArticle != null) {
             new DownloadImageTask(thumbnailView).execute(currentNewsArticle.getThumbnailUrl());
         }
         // Find the TextView with view ID location
-        TextView headlineTextView = (TextView) listItemView.findViewById(R.id.headline);
+        TextView headlineTextView = listItemView.findViewById(R.id.headline);
         // Display the location of the current earthquake in that TextView
         headlineTextView.setText(currentNewsArticle.getHeader());
 
         // Find the TextView with view ID location offset
-        TextView authorTextView = (TextView) listItemView.findViewById(R.id.Author);
+        TextView authorTextView = listItemView.findViewById(R.id.Author);
         // Display the location offset of the current earthquake in that TextView
         authorTextView.setText(currentNewsArticle.getAuthor());
 
         // Create a new Date object from the time in milliseconds of the earthquake
-        Date dateObject = new Date(currentNewsArticle.getDatePublished());
+        String dateObject = currentNewsArticle.getDatePublished();
 
+        /** SimpleDateFormat format = new SimpleDateFormat("M-dd-yyyy HH:mm:ss"); // your format
+         * Date date;
+         *
+         {
+         try {
+         date = format.parse(dateObject);
+         SimpleDateFormat formatter = new SimpleDateFormat("M-dd-yyyy HH:mm:ss");
+         String datestring = formatter.format(date)
+         } catch (ParseException e) {
+         e.printStackTrace();
+         }
+
+         }
+         **/
         // Find the TextView with view ID date
-        TextView dateView = (TextView) listItemView.findViewById(R.id.date);
+        TextView dateView = listItemView.findViewById(R.id.date);
 
         // Display the date of the current earthquake in that TextView
-        dateView.setText(currentNewsArticle.getDatePublished());
+        dateView.setText(dateObject);
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;
@@ -83,6 +94,7 @@ public class NewsAdapter extends ArrayAdapter<NewsArticle> {
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
+
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
@@ -99,13 +111,11 @@ public class NewsAdapter extends ArrayAdapter<NewsArticle> {
             }
             return bmp;
         }
+
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
-                    }
+        }
     }
-
-
-
 
 
 }

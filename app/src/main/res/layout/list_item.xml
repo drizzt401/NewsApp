@@ -13,15 +13,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:layout_marginLeft="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginRight="8dp">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding">
 
     <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="124dp"
-        android:layout_height="64dp"
+        android:layout_width="@dimen/imageSize"
+        android:layout_height="@dimen/imageSize"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/contentDesc"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher" />
 
@@ -30,21 +30,24 @@
         android:id="@+id/headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
+        android:ellipsize="marquee"
+        android:gravity="fill"
+        android:includeFontPadding="false"
+        android:minLines="2"
+        android:padding="@dimen/smallPadding"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
+        android:textSize="@dimen/myTextSize"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/thumbnail"
+        app:layout_constraintTop_toTopOf="@id/thumbnail"
         tools:text="30km S of" />
 
     <LinearLayout
         android:id="@+id/timestamp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:orientation="horizontal"
+        android:padding="@dimen/smallPadding"
         app:layout_constraintBottom_toBottomOf="@id/thumbnail"
         app:layout_constraintLeft_toRightOf="@id/thumbnail">
 
@@ -53,23 +56,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="8dp"
-            android:textSize="12sp"
+            android:textSize="@dimen/smallTextSize"
             tools:text="Mar 6, 2010 3:00 PM" />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="12dp"
+            android:layout_width="@dimen/smallMargin"
+            android:layout_height="@dimen/smallMargin"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" />
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding" />
 
         <TextView
             android:id="@+id/Author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
+            android:textSize="@dimen/smallTextSize"
             tools:text="Anonymous" />
 
     </LinearLayout>
