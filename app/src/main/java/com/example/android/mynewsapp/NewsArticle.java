@@ -11,13 +11,15 @@ public class NewsArticle {
     private String Header;
     private String Author;
     private String DatePublished;
+    private String Section;
     private String Url;
 
 
-    public NewsArticle(String thumbnail, String header, String author, String date, String url) {
+    public NewsArticle(String thumbnail, String header, String section, String author, String date, String url) {
 
         ThumbnailUrl = thumbnail;
         Header = header;
+        Section = section;
         Author = author;
         DatePublished = date;
         Url = url;
@@ -29,6 +31,10 @@ public class NewsArticle {
 
     public String getHeader() {
         return Header;
+    }
+
+    public String getSection() {
+        return Section;
     }
 
     public String getAuthor() {

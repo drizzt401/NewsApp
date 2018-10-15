@@ -45,26 +45,31 @@ public class NewsAdapter extends ArrayAdapter<NewsArticle> {
                     R.layout.list_item, parent, false);
         }
 
-        // Find the earthquake at the given position in the list of earthquakes
+        // Find the article at the given position in the list of news articles
         NewsArticle currentNewsArticle = getItem(position);
 
-        // Find the TextView with view ID magnitude
+        // Find the ImageView with view ID thumbnail
         ImageView thumbnailView = listItemView.findViewById(R.id.thumbnail);
-        // Display the magnitude of the current earthquake in that TextView
+        // Display the image associated with the current article in that ImageView
         if (currentNewsArticle != null) {
             new DownloadImageTask(thumbnailView).execute(currentNewsArticle.getThumbnailUrl());
         }
-        // Find the TextView with view ID location
+        // Find the TextView with view ID headline
         TextView headlineTextView = listItemView.findViewById(R.id.headline);
-        // Display the location of the current earthquake in that TextView
+        // Display the header of the current article in that TextView
         headlineTextView.setText(currentNewsArticle.getHeader());
 
-        // Find the TextView with view ID location offset
+        //Find the TextView with view ID Section
+        TextView sectionTextView = listItemView.findViewById(R.id.Section);
+        // Display the section of the current article in that TextView
+        sectionTextView.setText(currentNewsArticle.getSection());
+
+        // Find the TextView with view ID Author
         TextView authorTextView = listItemView.findViewById(R.id.Author);
-        // Display the location offset of the current earthquake in that TextView
+        // Display the author of the current article in that TextView
         authorTextView.setText(currentNewsArticle.getAuthor());
 
-        // Create a new Date object from the time in milliseconds of the earthquake
+        // Create a new Date object from the time the article was published
         String dateObject = currentNewsArticle.getDatePublished();
 
         /** SimpleDateFormat format = new SimpleDateFormat("M-dd-yyyy HH:mm:ss"); // your format
@@ -84,7 +89,7 @@ public class NewsAdapter extends ArrayAdapter<NewsArticle> {
         // Find the TextView with view ID date
         TextView dateView = listItemView.findViewById(R.id.date);
 
-        // Display the date of the current earthquake in that TextView
+        // Display the date the current article was published in that TextView
         dateView.setText(dateObject);
 
         // Return the list item view that is now showing the appropriate data

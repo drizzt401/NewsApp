@@ -20,11 +20,9 @@ import java.util.List;
 public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NewsArticle>> {
 
     private static final int EARTHQUAKE_LOADER_ID = 1;
-    private NewsAdapter Adapter;
-
     private static final String GUARDIAN_REQUEST_URL =
-            "https://content.guardianapis.com/search?api-key=b9b4bf54-2edf-4e5c-aa02-982779134a55&order-by=newest&show-tags=contributor&show-fields=thumbnail,headline";
-
+            "https://content.guardianapis.com/search";
+    private NewsAdapter Adapter;
     private TextView mEmptyStateTextView;
     private ProgressBar mProgressBar;
 
@@ -33,13 +31,11 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
         ConnectivityManager cm =
-                (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnected();
-
-
 
 
         if (isConnected) {
@@ -50,9 +46,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
             // because this activity implements the LoaderCallbacks interface).
             loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
-        }
-
-        else {
+        } else {
             mProgressBar = findViewById(R.id.loading_spinner);
             mProgressBar.setVisibility(View.INVISIBLE);
             mEmptyStateTextView = findViewById(R.id.empty_view);
@@ -60,9 +54,9 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
         }
         // Find a reference to the {@link ListView} in the layout
-        ListView newsArticleListView =  findViewById(R.id.list);
+        ListView newsArticleListView = findViewById(R.id.list);
 
-        mProgressBar =  findViewById(R.id.loading_spinner);
+        mProgressBar = findViewById(R.id.loading_spinner);
         // Create a new adapter that takes an empty list of earthquakes as input
         Adapter = new NewsAdapter(this, new ArrayList<NewsArticle>());
 
@@ -94,18 +88,32 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
 
-
     }
+
     @Override
     // onCreateLoader instantiates and returns a new Loader for the given ID
     public android.support.v4.content.Loader<List<NewsArticle>> onCreateLoader(int i, Bundle bundle) {
 
+        String apiKey = getString(R.string.apiKey);
+        String orderBy = getString(R.string.order);
+        String fields = getString(R.string.fields);
+        String tags = getString(R.string.tags);
 
         // parse breaks apart the URI string that's passed into its parameter
         Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
 
-        // Return the completed uri `http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10&minmag=minMagnitude&orderby=time
-        return new NewsLoader(this, baseUri.toString());
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        // Append query parameter and its value.
+        uriBuilder.appendQueryParameter("api-key", apiKey);
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("show-tags", tags);
+        uriBuilder.appendQueryParameter("show-fields", fields);
+
+
+        // Return the completed uri `https://content.guardianapis.com/search?api-key=b9b4bf54-2edf-4e5c-aa02-982779134a55&order-by=newest&show-tags=contributor&show-fields=thumbnail,headline
+        return new NewsLoader(this, uriBuilder.toString());
 
     }
 
@@ -131,7 +139,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     }
-
 
 
 }

@@ -5,4 +5,9 @@
     <string name="empty_string">""</string>
     <string name="error">Error</string>
     <string name="contentDesc">Image</string>
+    <string name="apiKey">b9b4bf54-2edf-4e5c-aa02-982779134a55</string>\
+    <string name="order">newest</string>
+    <string name="tags">contributor</string>
+    <string name="fields">thumbnail,headline</string>
+
 </resources>

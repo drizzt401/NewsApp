@@ -67,10 +67,28 @@
             android:layout_marginRight="@dimen/padding" />
 
         <TextView
-            android:id="@+id/Author"
+            android:id="@+id/Section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/smallTextSize"
+            tools:text="Section" />
+
+        <View
+            android:layout_width="@dimen/smallMargin"
+            android:layout_height="@dimen/smallMargin"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding" />
+
+
+
+        <TextView
+            android:id="@+id/Author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="bold"
             android:textSize="@dimen/smallTextSize"
             tools:text="Anonymous" />
 
